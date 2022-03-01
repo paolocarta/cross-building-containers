@@ -9,4 +9,4 @@ spec:
   resources:
     - name: cross-build-docker-source
       resourceRef:
-        name: cross-build-git    
+        name: cross-build-git 

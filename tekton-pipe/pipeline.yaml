@@ -4,8 +4,8 @@ metadata:
   name: build-ppc64le-image-from-tekton-pipeline
 spec:
   resources:
-      - name: cross-build-docker-source
-        type: git
+    - name: cross-build-docker-source
+      type: git
   tasks:
     - name: build-ppc64le-image
       taskRef:
@@ -20,9 +20,9 @@ spec:
         - name: CONTAINER
           value: ppc64lecntwithincnt
         - name: REMOTE_REPO_URL
-          value: {Your_Remote_Repository_URL}
+          value: test
         - name: USERNAME
-          value: {Your_Remote_Repository_Username}
+          value: test
         - name: PASSWORD
-          value: {Your_Remote_Repository_Password}
+          value: test
 
