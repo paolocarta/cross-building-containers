@@ -8,4 +8,4 @@ spec:
     - name: revision
       value: main
     - name: url
-      value: https://github.com/mayurwaghmode/cross-building-containers.git
+      value: https://github.com/paolocarta/cross-building-containers.git

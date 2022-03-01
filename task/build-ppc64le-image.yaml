@@ -32,10 +32,10 @@ spec:
         buildah bud -f $(params.pathToDockerFile-cross-build) -t $(params.IMAGE)  
         buildah from localhost/$(params.IMAGE)
         buildah commit $(params.IMAGE)-working-container $(params.CONTAINER)
-        #Login to the remote Quay repository
-        buildah login -u $(params.USERNAME) -p $(params.PASSWORD) quay.io
-        #Pushing the image to the Quay repository
-        buildah push $(params.CONTAINER) $(params.REMOTE_REPO_URL)
+        # #Login to the remote Quay repository
+        # buildah login -u $(params.USERNAME) -p $(params.PASSWORD) quay.io
+        # #Pushing the image to the Quay repository
+        # buildah push $(params.CONTAINER) $(params.REMOTE_REPO_URL)
       volumeMounts:
         - name: varlibcontainers
           mountPath: /var/lib/containers
