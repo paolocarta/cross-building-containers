@@ -3,8 +3,6 @@ kind: Pipeline
 metadata:
   name: build-ppc64le-image-from-tekton-pipeline
 spec:
-  params:
-    - name: pathToDockerfile-cross-build
   resources:
       - name: cross-build-docker-source
         type: git

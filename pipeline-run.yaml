@@ -3,12 +3,9 @@ kind: PipelineRun
 metadata:
   name: build-docker-image-from-git-source-pipeline-run
 spec:
-  serviceAccountName: quay-service
+  # serviceAccountName: quay-service
   pipelineRef:
     name: build-ppc64le-image-from-tekton-pipeline
-  params:
-    - name: pathToDockerfile-cross-build
-      value: Dockerfile
   resources:
     - name: cross-build-docker-source
       resourceRef:

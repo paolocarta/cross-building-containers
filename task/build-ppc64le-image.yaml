@@ -7,7 +7,7 @@ spec:
     - name: pathToDockerFile-cross-build
       type: string
       description: The path to the dockerfile to build
-      default: $(resources.inputs.cross-build-docker-source.path)/Cross-Build/Dockerfile
+      default: ./docker-build/Dockerfile
     - name: IMAGE
       description: Reference of the image buildah will produce.
     - name: CONTAINER
