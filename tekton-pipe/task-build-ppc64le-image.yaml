@@ -25,20 +25,51 @@ spec:
   steps:
     - name: cross-build
       #Base image for cross building ppc64le container
-      image: quay.io/buildah/stable
+      image: quay.io/buildah/stable:v1.23.1
       workingDir: /workspace/cross-build-docker-source
       script: |
         #!/bin/sh
         #Building the Dockerfile
+
         pwd
         ls -l
-        buildah bud -f $(params.pathToDockerFile-cross-build) -t $(params.IMAGE)  
-        buildah from localhost/$(params.IMAGE)
-        buildah commit $(params.IMAGE)-working-container $(params.CONTAINER)
+
+        export MANIFEST_NAME="multiarch-test"
+        export BUILD_PATH="."
+        export REGISTRY="docker.io"
+        export USER="clamer"
+        export IMAGE_NAME="my-service"
+        export IMAGE_TAG="v1"
+
+        # Create a multi-architecture manifest
+        buildah manifest create ${MANIFEST_NAME}
+
+        # Build your amd64 architecture container
+        buildah bud \
+            --tag "${REGISTRY}/${USER}/${IMAGE_NAME}:${IMAGE_TAG}" \
+            --manifest ${MANIFEST_NAME} \
+            --arch amd64 \
+            --file $(params.pathToDockerFile-cross-build) \
+            ${BUILD_PATH}
+
+        # Build your ppc64le architecture container
+        buildah bud \
+            --tag "${REGISTRY}/${USER}/${IMAGE_NAME}:${IMAGE_TAG}" \
+            --manifest ${MANIFEST_NAME} \
+            --arch ppc64le \
+            --file $(params.pathToDockerFile-cross-build) \
+            ${BUILD_PATH}
+        
+        # buildah bud -f $(params.pathToDockerFile-cross-build) -t $(params.IMAGE)  
+        # buildah from localhost/$(params.IMAGE)
+        # buildah commit $(params.IMAGE)-working-container $(params.CONTAINER)
+        
+        
         # #Login to the remote Quay repository
         # buildah login -u $(params.USERNAME) -p $(params.PASSWORD) quay.io
         # #Pushing the image to the Quay repository
         # buildah push $(params.CONTAINER) $(params.REMOTE_REPO_URL)
+
       volumeMounts:
         - name: varlibcontainers
           mountPath: /var/lib/containers
