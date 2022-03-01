@@ -26,9 +26,12 @@ spec:
     - name: cross-build
       #Base image for cross building ppc64le container
       image: quay.io/buildah/stable
+      workingDir: /workspace/cross-build-docker-source
       script: |
         #!/bin/sh
         #Building the Dockerfile
+        pwd
+        ls -l
         buildah bud -f $(params.pathToDockerFile-cross-build) -t $(params.IMAGE)  
         buildah from localhost/$(params.IMAGE)
         buildah commit $(params.IMAGE)-working-container $(params.CONTAINER)
